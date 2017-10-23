@@ -4,7 +4,7 @@ import scipy.io as sio
 import numpy as np
 import savefig as sf
 
-mat = sio.loadmat("training2017/A00002.mat")
+mat = sio.loadmat("/home/manuel/Documents/Minip/Dataset/training2017/A00002.mat")
 fig, ax = plt.subplots(figsize=(200, 50))
 
 ax.set_axisbelow(True)
@@ -20,7 +20,7 @@ ax.grid(which='minor', linestyle=':', linewidth='0.2', color='black')
 
 ax.patch.set_facecolor("#fff4f0")
 
-x = np.linspace(0, 90, 9000, endpoint=True)
+x = np.linspace(0, 9000, 30, endpoint=True)
 mat = mat["val"].tolist()[0]
 
 plt.plot(x,mat,linewidth="0.2", color="black")

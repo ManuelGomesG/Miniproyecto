@@ -7,6 +7,6 @@ import savefig
 
 
 
-record = wfdb.rdsamp('training2017/A00001')
-wfdb.plotrec(record, title='Record A00001')
+record = wfdb.rdsamp('/home/manuel/Documents/Minip/Dataset/training2017/A00001', sampto=700)
+wfdb.plotrec(record, title='Record A00001', timeunits='seconds',figsize = (10,4), ecggrids='all')
 display(record.__dict__)
