@@ -3,10 +3,15 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 from IPython.display import display
-import savefig
+import savefig as sf
+import sys
 
 
-
-record = wfdb.rdsamp('/home/manuel/Documents/Minip/Dataset/training2017/A00001', sampto=700)
-wfdb.plotrec(record, title='Record A00001', timeunits='seconds',figsize = (10,4), ecggrids='all')
-display(record.__dict__)
+fullpath=sys.argv[1][:-4]
+record = wfdb.rdsamp( fullpath , sampto=700)
+rname=fullpath.split("/")[-1]
+print(rname)
+plt.close(wfdb.plotrec(record, title=rname, timeunits='seconds',figsize = (200,50), ecggrids='all', returnfig = True))
+sf.save(rname,ext="pdf", close=True, verbose=True)
+plt.close(fig)
+#display(record.__dict__)
