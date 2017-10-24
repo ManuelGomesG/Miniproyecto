@@ -1,0 +1,19 @@
+Daniela Socas
+Manuel Gomes
+********************************************************************************
+
+
+Descripción: Script que permite graficar datasets de ECG y guardarlos en formato
+PNG.
+Uso:
+Para usarlo se corre el comando
+  python main.py <dirección y nombre del archivo sin extensión>
+
+Por ejemplo:
+  $ python main.py A00002
+
+Para leer todos el data set de una carpeta se usa el comando
+  sh ECG.sh <dirección de la carpeta>
+
+Ejemplo:
+  $ sh ECG.sh ~/Documents/Minip/Dataset/training2017 
