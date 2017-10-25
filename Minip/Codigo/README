@@ -16,4 +16,9 @@ Para leer todos el data set de una carpeta se usa el comando
   sh ECG.sh <dirección de la carpeta>
 
 Ejemplo:
-  $ sh ECG.sh ~/Documents/Minip/Dataset/training2017 
+  $ sh ECG.sh ~/Documents/Minip/Dataset/training2017
+
+
+********************************************************************************
+********************************************************************************
+CAMBIAR EN EL ARCHIVO wfdbi.py LA CARPETA DONDE SE GUARDAN LAS IMÁGENES
