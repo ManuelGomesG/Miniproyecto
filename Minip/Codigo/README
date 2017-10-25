@@ -7,7 +7,7 @@ Descripción: Script que permite graficar datasets de ECG y guardarlos en format
 PNG.
 Uso:
 Para usarlo se corre el comando
-  python main.py <dirección y nombre del archivo sin extensión>
+  python main.py <dirección y nombre del archivo CON extensión>
 
 Por ejemplo:
   $ python main.py A00002
