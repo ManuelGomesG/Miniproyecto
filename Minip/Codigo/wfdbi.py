@@ -15,7 +15,7 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
 
 
 
-    picpath="/home/manuel/Documents/Minip/fullimgs/"
+    picpath="/home/manuel/muestra/"
     t, tann, annplot = checkplotitems(record, title, annotation, timeunits, sigstyle, annstyle)
 
     siglen, nsig = record.p_signals.shape
@@ -99,6 +99,8 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
 
     if returnfig:
         return fig
+    else:
+        plt.close(fig)
 
 
 def calc_ecg_grids(minsig, maxsig, units, fs, maxt, timeunits):
@@ -263,3 +265,58 @@ def checkplotitems(record, title, annotation, timeunits, sigstyle, annstyle):
 
 
     return (t, tann, annplot)
+
+
+
+
+
+
+def peaks_hr(x, peak_indices, fs, title, figsize=(20, 10), saveto=None):
+
+    # Calculate heart rate
+    hrs = wfdb.processing.compute_hr(siglen=x.shape[0], peak_indices=peak_indices, fs=fs)
+
+    N = x.shape[0]
+
+    fig, ax_left = plt.subplots(figsize=figsize)
+    ax_right = ax_left.twinx()
+
+    ax_left.plot(x, color='#3979f0', label='Signal')
+    ax_left.plot(peak_indices, x[peak_indices], 'rx', marker='x', color='#8b0000', label='Peak', markersize=12)
+    ax_right.plot(np.arange(N), hrs, label='Heart rate', color='m', linewidth=2)
+
+    ax_left.set_title(title)
+
+    ax_left.set_xlabel('Time (ms)')
+    ax_left.set_ylabel('ECG (mV)', color='#3979f0')
+    ax_right.set_ylabel('Heart rate (bpm)', color='m')
+    # Make the y-axis label, ticks and tick labels match the line color.
+    ax_left.tick_params('y', colors='#3979f0')
+    ax_right.tick_params('y', colors='m')
+    if saveto is not None:
+        plt.savefig(saveto, dpi=600)
+    #plt.show()
+
+
+
+
+
+def gqrs_plot(recordname, t0=0, tf=10000):
+    # Load the wfdb record and the physical samples
+    record = wfdb.rdsamp(recordname, sampfrom=t0, sampto=tf, channels=[0])
+
+    # Use the gqrs algorithm to find peaks in the first channel
+    # The gqrs_detect argument expects a digital signal for the first argument.
+    d_signal = record.adc()[:,0]
+    peak_indices = wfdb.processing.gqrs_detect(d_signal, fs=record.fs, adcgain=record.adcgain[0], adczero=record.adczero[0], threshold=1.0)
+    print('gqrs detected peak indices:', peak_indices)
+    peaks_hr(x=record.p_signals, peak_indices=peak_indices, fs=record.fs, title="GQRS peak detection on sampledata/100")
+
+    # Correct the peaks by applying constraints
+    min_bpm = 20
+    max_bpm = 230
+    min_gap = record.fs*60/min_bpm
+    max_gap = record.fs*60/max_bpm
+    peak_indices = wfdb.processing.correct_peaks(d_signal, peak_indices=peak_indices, min_gap=min_gap, max_gap=max_gap, smooth_window=150)
+    print('corrected gqrs detected peak indices:', sorted(peak_indices))
+    peaks_hr(x=record.p_signals, peak_indices=sorted(peak_indices), fs=record.fs, title="Corrected GQRS peak detection on sampledata/100")
