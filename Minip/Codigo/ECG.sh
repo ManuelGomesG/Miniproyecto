@@ -5,6 +5,6 @@ do
 if echo $i | grep ".mat" >> /dev/null; then
   arg="$1/$i"
   #echo $arg
-  python main.py $arg
+  python divide.py $arg
 fi
 done
