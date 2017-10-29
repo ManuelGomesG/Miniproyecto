@@ -18,7 +18,15 @@ Para leer todos el data set de una carpeta se usa el comando
 Ejemplo:
   $ sh ECG.sh ~/Documents/Minip/Dataset/training2017
 
+Para la segementación de todos los archivos de REFERENCES.csv:
+  $ python segments.py <ubicación>
+
+Ejemplo
+  $ python segments.py /home/manuel/Documents/Minip/Dataset/training2017/
+
 
 ********************************************************************************
+                              NOTAS IMPORTANTES
 ********************************************************************************
-CAMBIAR EN EL ARCHIVO wfdbi.py LA CARPETA DONDE SE GUARDAN LAS IMÁGENES
+-CAMBIAR EN EL ARCHIVO wfdbi.py LA CARPETA DONDE SE GUARDAN LAS IMÁGENES
+-EL ARCHIVO REFERENCES.csv DEBE ESTAR EN EL MISMO DIRECTORIO QUE LOS SAMPLES

@@ -12,9 +12,12 @@ import csv
 
 
 
-fullpath="/home/manuel/Documents/Minip/Dataset/training2017/"
-rpath="/home/manuel/Documents/Minip/Dataset/training2017/REFERENCE.csv"
+fullpath=sys.argv[1]
+rpath=fullpath+"REFERENCE.csv"
 
+segcsv = open('./segReferences.csv', 'wb')
+segwriter = csv.writer(segcsv, delimiter=' ',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
 
 with open(rpath, 'rb') as csvfile:
@@ -38,6 +41,8 @@ with open(rpath, 'rb') as csvfile:
          for i in range(1,len(peak_indices)-3):
              print("Graficando " + rname+ ": " + str(i) + "/"+ str(len(peak_indices)-4))
              j = i - 1
+             segwriter.writerow([rname, str(i), rclass])
+
              if i == 1:
                  sf = 0
                  st = (peak_indices[j+4] + peak_indices[j+5])//2
@@ -58,3 +63,6 @@ with open(rpath, 'rb') as csvfile:
                  wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10), ecggrids='all', returnfig = False)
 
                  print("["+str(sf)+","+str(st)+"]")
+
+
+segcsv.close()
