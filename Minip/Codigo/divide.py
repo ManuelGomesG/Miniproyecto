@@ -7,13 +7,13 @@ import sys
 import csv
 import pywt
 
-#fullpath=sys.argv[1][:-4]
+fullpath=sys.argv[1][:-4]
 
-fullpath = "training2017/A00001"
+#fullpath = "training2017/A00001"
 record = wfdb.rdsamp(fullpath)
 
 
-# Detecting R peaks for QRS segments 
+# Detecting R peaks for QRS segments
 d_signal = record.adc()[:,0]
 peak_indices = wfdb.processing.gqrs_detect(x=d_signal, fs=record.fs, adcgain=record.adcgain[0], adczero=record.adczero[0], threshold=1.0)
 
