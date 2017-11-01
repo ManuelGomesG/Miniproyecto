@@ -6,8 +6,7 @@ for i in $(ls $1)
 do
 if echo $i | grep ".mat" >> /dev/null; then
   arg="$1$i" 
-  gqrs -r ${arg::-4} >> /dev/null
-  python divide.py $arg
+  python divide.py $arg $signum
 # python main.py $arg
 fi
 done
