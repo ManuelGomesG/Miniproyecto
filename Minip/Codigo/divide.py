@@ -7,9 +7,9 @@ import sys
 import csv
 import pywt
 
-#fullpath=sys.argv[1][:-4]
+fullpath=sys.argv[1][:-4]
 
-fullpath = "training2017/A00001"
+#fullpath = "training2017/A00001"
 record = wfdb.rdsamp(fullpath)
 
 
