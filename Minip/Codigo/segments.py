@@ -1,4 +1,7 @@
-import wfdb
+#Autor Manuel Gomes    Octubre 2017
+
+
+
 import wfdb
 import numpy as np
 import os
