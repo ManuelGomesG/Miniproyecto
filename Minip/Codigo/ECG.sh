@@ -1,15 +1,15 @@
 ##!/bin/bash
+#Autor Manuel Gomes  Daniela Socas    Octubre 2017
 
-python createcsv.py 
+python createcsv.py
 
 for i in $(ls $1)
 do
 if echo $i | grep ".mat" >> /dev/null; then
-  arg="$1/$i" 
-  python divide.py $arg 
+  arg="$1/$i"
+  python divide.py $arg
   python main.py $arg
 fi
 done
 
-# Flag for dividing 
-
+# Flag for dividing
