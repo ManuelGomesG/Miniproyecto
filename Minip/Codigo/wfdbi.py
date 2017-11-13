@@ -14,7 +14,7 @@ import savefig as sf
 
 
 def plotrec(record=None, title = None, annotation = None, timeunits='samples',
-    sigstyle='', annstyle='r*', figsize=None, returnfig = False, ecggrids=[]):
+    sigstyle='', annstyle='r*', figsize=None, returnfig = False, ecggrids=[], ext=''):
 
 
 
@@ -97,7 +97,7 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
             ax.set_ylim(auto_ylims)
 
 
-    fig.savefig(picpath+title+".png")
+    fig.savefig(picpath+ext+"-"+title+".png")
 
 
     if returnfig:

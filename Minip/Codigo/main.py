@@ -35,34 +35,51 @@ with open(rpath, 'rb') as csvfile:
                 if normalc<257:
                     normalc+= 1
                     tc+= 1
+                    f=open(fullpath+rname+".hea", "r")
+                    samp=int(f.readline().split(" ")[3])
+                    record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
+                    print(rname)
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='N')
                 else:
                     continue
              elif rclass=="O":
                 if oc<128:
                     oc+= 1
                     tc+= 1
+                    f=open(fullpath+rname+".hea", "r")
+                    samp=int(f.readline().split(" ")[3])
+                    record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
+                    print(rname)
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='O')
                 else:
                     continue
              elif rclass=="~":
                 if noisyc<5:
                     noisyc+= 1
                     tc+= 1
+                    f=open(fullpath+rname+".hea", "r")
+                    samp=int(f.readline().split(" ")[3])
+                    record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
+                    print(rname)
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='Y')
                 else:
                     continue
              elif rclass=="A":
                 if ac<40:
                     ac+= 1
                     tc+= 1
+                    f=open(fullpath+rname+".hea", "r")
+                    samp=int(f.readline().split(" ")[3])
+                    record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
+                    print(rname)
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='A')
                 else:
                     continue
 
-             f=open(fullpath+rname+".hea", "r")
-             samp=int(f.readline().split(" ")[3])
-             record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
 
 
-             print(rname)
-             wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False)
+
+
          else:
              quit()
 
