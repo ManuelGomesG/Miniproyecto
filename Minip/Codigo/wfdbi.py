@@ -14,11 +14,12 @@ import savefig as sf
 
 
 def plotrec(record=None, title = None, annotation = None, timeunits='samples',
-    sigstyle='', annstyle='r*', figsize=None, returnfig = False, ecggrids=[], ext=''):
+    sigstyle='', annstyle='r*', figsize=None, returnfig = False, ecggrids=[], ext='',
+    picpath="/home/manuel/muestra/"):
 
 
 
-    picpath="/home/manuel/muestra/"
+    #picpath="/home/manuel/muestra/"
     t, tann, annplot = checkplotitems(record, title, annotation, timeunits, sigstyle, annstyle)
 
     siglen, nsig = record.p_signals.shape
@@ -97,7 +98,12 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
             ax.set_ylim(auto_ylims)
 
 
-    fig.savefig(picpath+ext+"-"+title+".png")
+    print picpath+title
+
+    if ext=='':
+        fig.savefig(picpath+title+".png")
+    else:
+        fig.savefig(picpath+ext+"-"+title+".png")
 
 
     if returnfig:
