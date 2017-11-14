@@ -20,7 +20,6 @@ def plotting(fullpath='',grid=1,out=''):
     if grid==1:
         wfdbi.plotrec(record, title=sig, timeunits='seconds',figsize = (200,5),
             ecggrids='all',returnfig = False, picpath=out)
-        print("Masun")
     else:
         wfdbi.plotrec(record, title=sig, timeunits='seconds',figsize = (200,5),
             returnfig = False, picpath=out)
