@@ -98,7 +98,7 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
             ax.set_ylim(auto_ylims)
 
 
-    print picpath+title
+    print(picpath+title)
 
     if ext=='':
         fig.savefig(picpath+title+".png")

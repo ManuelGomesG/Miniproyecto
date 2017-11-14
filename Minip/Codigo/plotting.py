@@ -1,8 +1,8 @@
 #Manuel Gomes 11-10375 10/11/17
 #Integracion con aplicacion web
 import sys
-import wfdbi
 import wfdb
+import wfdbi
 
 
 def plotting(fullpath='',grid=1,out=''):
@@ -10,7 +10,8 @@ def plotting(fullpath='',grid=1,out=''):
     #fullpath=sys.argv[1]
     sig=fullpath.split("/")[-1]
 
-    #print sig
+    print sig
+
 
     f=open(fullpath+".hea", "r")
     samp=int(f.readline().split(" ")[3])
@@ -19,6 +20,7 @@ def plotting(fullpath='',grid=1,out=''):
     if grid==1:
         wfdbi.plotrec(record, title=sig, timeunits='seconds',figsize = (200,5),
             ecggrids='all',returnfig = False, picpath=out)
+        print("Masun")
     else:
         wfdbi.plotrec(record, title=sig, timeunits='seconds',figsize = (200,5),
             returnfig = False, picpath=out)
