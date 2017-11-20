@@ -29,47 +29,63 @@ with open(rpath, 'rb') as csvfile:
 
          print" tc: " , tc, "oc: ", oc, "noisy: ", noisyc, "ac: ", ac
 
-         if tc<430:
+         if tc<1000:
 
              if rclass=="N":
-                if normalc<257:
-                    normalc+= 1
-                    tc+= 1
+                if normalc<598:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
+                    if samp > 9000:
+                        continue
+                    elif samp < 9000:
+                        print rname,"menor de 9000"
+                    normalc+= 1
+                    tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
                     wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='N')
                 else:
                     continue
              elif rclass=="O":
-                if oc<128:
-                    oc+= 1
-                    tc+= 1
+                if oc<298:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
+                    if samp > 9000:
+                        continue
+                    elif samp < 9000:
+                        print rname,"menor de 9000"
+                    oc+= 1
+                    tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
                     wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='O')
                 else:
                     continue
              elif rclass=="~":
-                if noisyc<5:
-                    noisyc+= 1
-                    tc+= 1
+                if noisyc<11:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
+                    if samp > 9000:
+                        continue
+                    elif samp < 9000:
+                        print rname,"menor de 9000"
+                    noisyc+= 1
+                    tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
                     wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='Y')
                 else:
                     continue
              elif rclass=="A":
-                if ac<40:
-                    ac+= 1
-                    tc+= 1
+                if ac<93:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
+                    if samp > 9000:
+                        continue
+                    elif samp < 9000:
+                        print rname,"menor de 9000"
+                    ac+= 1
+                    tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
                     wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='A')

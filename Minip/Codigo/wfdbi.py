@@ -22,6 +22,8 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
     #picpath="/home/manuel/muestra/"
     t, tann, annplot = checkplotitems(record, title, annotation, timeunits, sigstyle, annstyle)
 
+
+
     siglen, nsig = record.p_signals.shape
 
 
@@ -45,8 +47,32 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
 
     for ch in range(nsig):
 
-        ax = fig.add_subplot(nsig, 1, ch+1)
-        ax.plot(t, record.p_signals[:,ch], sigstyle[ch], zorder=3, color="black")
+        if len(t)<9000:
+            record2 = wfdb.rdsamp(  "/home/manuel/Documents/Minip/Dataset/training2017/A00001", sampto=9000)
+
+            t, GAH, GAHHHH = checkplotitems(record2, title, annotation, timeunits, sigstyle, annstyle)
+            #guh=9000-len(t)
+            #label=np.ones((guh,),dtype = int)
+            #print "guh", len(label)
+            #label[0:]=0
+            #t=np.append(t,label)
+            #z=np.zeros(9000-len(t))
+            zs=9000-len(record.p_signals[:,ch])
+            #print zs
+            guhhh=np.lib.pad(record.p_signals[:,ch],(0,zs),'constant')
+            #print guhhh
+
+            ax = fig.add_subplot(nsig, 1, ch+1)
+
+            ax.plot(t, guhhh, sigstyle[ch], zorder=3, color="black")
+
+            #print "lennnnnnnnn", len(record.p_signals[:,ch])
+
+        else:
+
+
+            ax = fig.add_subplot(nsig, 1, ch+1)
+            ax.plot(t, record.p_signals[:,ch], sigstyle[ch], zorder=3, color="black")
 
         if (title is not None) and (ch==0):
             plt.title(title)
