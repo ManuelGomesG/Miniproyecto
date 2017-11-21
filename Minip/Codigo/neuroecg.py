@@ -31,12 +31,15 @@ print numsamples
 imag_rows=200
 imag_cols=50
 """
+guh=0
 for img in listing:
-    print img
+    guh+=1
+    print img,"  " ,guh
 
     im = Image.open(path1+'/'+img)
     imag = im.resize((imag_rows,imag_cols))
     grey=imag.convert('L')
+    imag.save(path2+'/'+img,"png")
     grey.save(path2+'/'+img,"png")
 """
 
@@ -64,8 +67,9 @@ fullglist.extend(nlist)
 fullglist.extend(olist)
 fullglist.extend(alist)
 fullglist.extend(ylist)
-#print '[%s]' % ', '.join(map(str, fullglist))
-#print size(fullglist)
+#print '[%s]' % ', '.join(map(str, nlist))
+print len(fullglist)
+
 
 im1=array(Image.open(path2+'/'+fullglist[0]))
 m,n=im1.shape[0:2]
@@ -75,10 +79,10 @@ immatrix = array([array(Image.open(path2+'/'+im2)).flatten() for im2 in fullglis
 
 
 label=np.ones((numsamples,),dtype = int)
-label[0:257]=0          #label de las n
-label[257:385]=1        #label de las o
-label[385:425]=2        #label de las a
-label[425:430]=3        #label de las noisy (y)
+label[0:len(nlist)]=0                                               #label de las n
+label[len(nlist):len(nlist)+len(olist)]=1                           #label de las o
+label[len(nlist)+len(olist):len(nlist)+len(olist)+len(alist)]=2     #label de las a
+label[len(nlist)+len(olist)+len(alist):]=3                          #label de las noisy (y)
 
 
 data,Label = shuffle(immatrix,label, random_state=2)
@@ -90,7 +94,7 @@ train_data = [data,Label]
 ################################################################################
 
 
-batch_size = 32
+batch_size = 40
 nb_classes = 4
 nb_epoch   = 20
 img_channels=1
@@ -106,7 +110,7 @@ nb_conv    = 3
 
 #Dividiemos en training y test
 
-X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.15,random_state=4)
 
 X_train = X_train.reshape(X_train.shape[0],1,imag_rows,imag_cols)
 X_test  = X_test.reshape(X_test.shape[0],1,imag_rows,imag_cols)
@@ -116,8 +120,8 @@ X_test  = X_test.astype('float32')
 
 ################################################################################
 #                                Optimizacion                                  #
-# X_train /= 255
-# X_test  /= 255
+#X_train /= 255
+#X_test  /= 255
 ################################################################################
 
 
@@ -139,12 +143,12 @@ model.add(Convolution2D(nb_filters,nb_conv,nb_conv))
 convout2=Activation('relu')
 model.add(convout2)
 model.add(MaxPooling2D(pool_size=(nb_pool,nb_pool)))
-model.add(Dropout(0.5))
+#model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(128))
+#model.add(Dense(128))
 model.add(Activation('relu'))
-model.add(Dropout(0.5))
+#model.add(Dropout(0.5))
 model.add(Dense(nb_classes))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adadelta',metrics=['accuracy'])
@@ -156,5 +160,10 @@ model.compile(loss='categorical_crossentropy', optimizer='adadelta',metrics=['ac
 model.fit(X_train,Y_train,batch_size=batch_size,epochs=nb_epoch,
                 verbose=1,validation_data=(X_test,Y_test))
 
-model.fit(X_train,Y_train,batch_size=batch_size,epochs=nb_epoch,
-                verbose=1,validation_split=0.2)
+#model.fit(X_train,Y_train,batch_size=batch_size,epochs=nb_epoch,
+#                verbose=1,validation_split=0.2)
+
+
+score = model.evaluate(X_test,Y_test, verbose=0)
+print'Test score',score[0]
+print'Test accuracy',score[1]
