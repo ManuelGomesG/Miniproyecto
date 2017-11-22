@@ -1,0 +1,26 @@
+ecg1.h5 / Imágenes completas
+
+Train on 344 samples, validate on 86 samples
+Epoch 1/10
+344/344 [==============================] - 603s 2s/step - loss: 1.1916 - acc: 0.5349 - val_loss: 1.0954 - val_acc: 0.5233
+Epoch 2/10
+344/344 [==============================] - 601s 2s/step - loss: 0.6471 - acc: 0.7442 - val_loss: 1.1812 - val_acc: 0.4302
+Epoch 3/10
+344/344 [==============================] - 595s 2s/step - loss: 0.3826 - acc: 0.8895 - val_loss: 1.1590 - val_acc: 0.4070
+Epoch 4/10
+344/344 [==============================] - 594s 2s/step - loss: 0.1552 - acc: 0.9913 - val_loss: 1.9805 - val_acc: 0.5116
+Epoch 5/10
+344/344 [==============================] - 595s 2s/step - loss: 0.1006 - acc: 0.9709 - val_loss: 1.1621 - val_acc: 0.5116
+Epoch 6/10
+344/344 [==============================] - 594s 2s/step - loss: 0.0389 - acc: 1.0000 - val_loss: 1.8076 - val_acc: 0.5000
+Epoch 7/10
+344/344 [==============================] - 595s 2s/step - loss: 0.0096 - acc: 1.0000 - val_loss: 2.0028 - val_acc: 0.5000
+Epoch 8/10
+344/344 [==============================] - 594s 2s/step - loss: 0.0036 - acc: 1.0000 - val_loss: 2.4544 - val_acc: 0.5000
+Epoch 9/10
+344/344 [==============================] - 594s 2s/step - loss: 0.0016 - acc: 1.0000 - val_loss: 2.6456 - val_acc: 0.5116
+Epoch 10/10
+344/344 [==============================] - 595s 2s/step - loss: 0.0018 - acc: 1.0000 - val_loss: 7.2309 - val_acc: 0.5349
+Test score 7.23092567089
+Test accuracy 0.534883718158
+Saved model to disk
