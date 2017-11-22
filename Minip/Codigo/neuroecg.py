@@ -5,6 +5,7 @@ from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.optimizers import SGD, RMSprop, adam
 from keras.utils import np_utils
+from keras.models import load_model
 
 import numpy as np
 import matplotlib.pyplot  as plt
@@ -28,8 +29,8 @@ listing=os.listdir(path1)
 numsamples=size(listing)
 print numsamples
 
-imag_rows=200
-imag_cols=50
+imag_rows=8000
+imag_cols=200
 """
 guh=0
 for img in listing:
@@ -94,13 +95,14 @@ train_data = [data,Label]
 ################################################################################
 
 
-batch_size = 40
+batch_size = 10
 nb_classes = 4
-nb_epoch   = 20
+nb_epoch   = 10
 img_channels=1
-nb_filters = 32
-nb_pool    = 2
-nb_conv    = 3
+nb_filters = 4
+nb_pool    = 4
+nb_conv    = 4
+
 
 ################################################################################
 #                               Entrenamiento                                  #
@@ -110,7 +112,7 @@ nb_conv    = 3
 
 #Dividiemos en training y test
 
-X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.15,random_state=4)
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
 
 X_train = X_train.reshape(X_train.shape[0],1,imag_rows,imag_cols)
 X_test  = X_test.reshape(X_test.shape[0],1,imag_rows,imag_cols)
@@ -120,8 +122,8 @@ X_test  = X_test.astype('float32')
 
 ################################################################################
 #                                Optimizacion                                  #
-#X_train /= 255
-#X_test  /= 255
+X_train /= 255
+X_test  /= 255
 ################################################################################
 
 
@@ -136,24 +138,50 @@ Y_test = np_utils.to_categorical(y_test,nb_classes)
 
 model = Sequential()
 
-model.add(Convolution2D(nb_filters,nb_conv,nb_conv,border_mode='valid',input_shape=(1,imag_rows,imag_cols)))
+model.add(Convolution2D(nb_filters,(nb_conv,nb_conv),padding='valid',input_shape=(1,imag_rows,imag_cols)))
 convout1 =Activation('relu')
 model.add(convout1)
-model.add(Convolution2D(nb_filters,nb_conv,nb_conv))
+model.add(Convolution2D(nb_filters,(nb_conv,nb_conv)))
 convout2=Activation('relu')
 model.add(convout2)
 model.add(MaxPooling2D(pool_size=(nb_pool,nb_pool)))
-#model.add(Dropout(0.25))
+model.add(Dropout(0.25))
 
 model.add(Flatten())
 #model.add(Dense(128))
 model.add(Activation('relu'))
+#model.add(Dropout(0.25))
+model.add(Dense(nb_classes))
+model.add(Activation('softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='rmsprop',metrics=['accuracy'])
+"""
+
+model = Sequential()
+model.add(Convolution2D(12, 3,3,border_mode='same',input_shape=(1,imag_rows,imag_cols)))
+model.add(Activation('relu'))
+model.add(Convolution2D(12, 3, 3))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+#model.add(Dropout(0.5))
+
+model.add(Convolution2D(12, 3, 3))
+model.add(Activation('relu'))
+#model.add(Convolution2D(64, 3, 3))
+#model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+#model.add(Dropout(0.5))
+
+model.add(Flatten())
+#model.add(Dense(64))
+model.add(Activation('relu'))
 #model.add(Dropout(0.5))
 model.add(Dense(nb_classes))
 model.add(Activation('softmax'))
-model.compile(loss='categorical_crossentropy', optimizer='adadelta',metrics=['accuracy'])
 
-
+#sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+#model.compile(loss='categorical_crossentropy', optimizer=sgd,metrics=["accuracy"])
+model.compile(loss='categorical_crossentropy', optimizer='rmsprop',metrics=["accuracy"])
+"""
 
 
 
@@ -167,3 +195,6 @@ model.fit(X_train,Y_train,batch_size=batch_size,epochs=nb_epoch,
 score = model.evaluate(X_test,Y_test, verbose=0)
 print'Test score',score[0]
 print'Test accuracy',score[1]
+
+model.save_weights("ecg1.h5")
+print("Saved model to disk")
