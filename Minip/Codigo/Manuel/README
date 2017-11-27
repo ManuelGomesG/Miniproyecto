@@ -28,8 +28,11 @@ Luego es guardada la imagen del segmento seleccionado.
   +El modelo generado es guardado en disco.
 
 
+El archivo wfdbi.py es una librería basada en la ya existenete wfdb.py que fue
+modificada para ajustarse a las necesitades del proyecto. Este archivo NO es un
+ejecutable.
+
 ********************************************************************************
                               NOTAS IMPORTANTES
 ********************************************************************************
--CAMBIAR EN EL ARCHIVO wfdbi.py LA CARPETA DONDE SE GUARDAN LAS IMÁGENES
 -EL ARCHIVO REFERENCES.csv DEBE ESTAR EN EL MISMO DIRECTORIO QUE LOS SAMPLES
