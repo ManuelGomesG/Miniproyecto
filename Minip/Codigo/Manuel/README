@@ -3,26 +3,29 @@ Manuel Gomes
 ********************************************************************************
 
 
-Descripción: Script que permite graficar datasets de ECG y guardarlos en formato
-PNG.
-Uso:
-Para usarlo se corre el comando
-  python main.py <dirección y nombre del archivo CON extensión>
+Repositorio del miniproyecto que busca clasificar imágenes según su patología.
 
-Por ejemplo:
-  $ python main.py A00002
+Archivos ejecutables:
+-main.py: Archivo que toma como parámetro una ruta donde se encuentre la data
+(.mat/dat con su respectivo .hea) y guarda imágenes con la proporción dada.
 
-Para leer todos el data set de una carpeta se usa el comando
-  sh ECG.sh <dirección de la carpeta>
+-segments.py: Script que segmenta TODAS las señales registradas en el archivo
+REFERENCE-v3.csv en 5 latidos desfazados en 1, las convierte en imágen y crea un
+archivo .csv para mantener su clasificación.
 
-Ejemplo:
-  $ sh ECG.sh ~/Documents/Minip/Dataset/training2017
+-randomsegs.py:Script que segmenta señales y toma 1 segmento aleatoriamente de cada
+señal, estas señales también son seleccionadas según la proporción de la patología.
+Luego es guardada la imagen del segmento seleccionado.
 
-Para la segementación de todos los archivos de REFERENCES.csv:
-  $ python segments.py <ubicación>
-
-Ejemplo
-  $ python segments.py /home/manuel/Documents/Minip/Dataset/training2017/
+-neuroecg.py: archivo que realiza las siguientes operaciones:
+  +Preprocesamiento de las imagenes: toma las imágenes de la carpeta seleccionada,
+    las convierte en blanco y negro y ajusta su tamaño.
+  +Generación de datos: las imágenes preprocesadas son aplanadas y apiladas en
+    una matriz con su respectiva etiqueta de clasificación. Luego se divide la
+    data en training y test, para el siguiente paso
+  +Generación del modelo: Se genera y entrena un modelo para poder clasificar las
+    imágenes.
+  +El modelo generado es guardado en disco.
 
 
 ********************************************************************************

@@ -8,7 +8,6 @@ from wfdb.readwrite import records
 from wfdb.readwrite import _headers
 from wfdb.readwrite import _signals
 from wfdb.readwrite import annotations
-import savefig as sf
 
 
 
@@ -46,7 +45,7 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
     fig=plt.figure(figsize=figsize)
 
     for ch in range(nsig):
-
+        """
         if len(t)<9000:
             record2 = wfdb.rdsamp(  "/home/manuel/Documents/Minip/Dataset/training2017/A00001", sampto=9000)
 
@@ -69,10 +68,10 @@ def plotrec(record=None, title = None, annotation = None, timeunits='samples',
             #print "lennnnnnnnn", len(record.p_signals[:,ch])
 
         else:
+            """
 
-
-            ax = fig.add_subplot(nsig, 1, ch+1)
-            ax.plot(t, record.p_signals[:,ch], sigstyle[ch], zorder=3, color="black")
+        ax = fig.add_subplot(nsig, 1, ch+1)
+        ax.plot(t, record.p_signals[:,ch], sigstyle[ch], zorder=3, color="black")
 
         if (title is not None) and (ch==0):
             plt.title(title)

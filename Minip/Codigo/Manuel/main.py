@@ -1,4 +1,12 @@
 #Autor Manuel Gomes    Octubre 2017
+#Genera y guarda imagenes con la proporcion dada
+
+#IMPORTANTE: MODIFICAR LA CARPETA DE DONDE SE VA A GUARDAR LAS IMAGENES
+
+
+
+#Uso: python main.py <directorio con el REFERENCE-v3.csv y la data>
+
 
 
 import wfdb
@@ -18,6 +26,9 @@ normalc=0
 noisyc=0
 ac=0
 oc=0
+
+#MODIFICAR LA CARPETA DE SALIDA AQUI
+outdir="/home/manuel/muestrag/"
 
 fullpath=sys.argv[1]
 rpath=fullpath+"REFERENCE-v3.csv"
@@ -43,7 +54,7 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='N')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),picpath=outdir, returnfig = False, ext='N')
                 else:
                     continue
              elif rclass=="O":
@@ -58,7 +69,7 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='O')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),picpath=outdir, returnfig = False, ext='O')
                 else:
                     continue
              elif rclass=="~":
@@ -73,7 +84,7 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='Y')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),picpath=outdir, returnfig = False, ext='Y')
                 else:
                     continue
              elif rclass=="A":
@@ -88,7 +99,7 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='A')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),picpath=outdir, returnfig = False, ext='A')
                 else:
                     continue
 

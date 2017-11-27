@@ -1,4 +1,12 @@
 #Autor Manuel Gomes    Octubre 2017
+#Segmenta las señales en 5 latidos desfazados en 1
+
+#IMPORTANTE: MODIFICAR LA CARPETA DE DONDE SE VA A GUARDAR LAS IMAGENES
+
+
+
+
+#Uso: python segments.py <ubicación del csv Y la data>
 
 
 
@@ -7,12 +15,13 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 from IPython.display import display
-import savefig as sf
 import sys
 import wfdbi
 import csv
 
 
+#MODIFICAR LA CARPETA DE SALIDA AQUI
+OUTDIR="/home/manuel/muestrag/"
 
 
 fullpath=sys.argv[1]
@@ -51,19 +60,19 @@ with open(rpath, 'rb') as csvfile:
                  st = (peak_indices[j+4] + peak_indices[j+5])//2
                  print("["+str(sf)+","+str(st)+"]")
                  record  = wfdb.rdsamp(  fullpath+rname, sampto=st, sampfrom=sf)
-                 wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10), ecggrids='all', returnfig = False)
+                 wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10),picpath=OUTDIR, returnfig = False)
              elif i == len(peak_indices)-4:
                  sf = (peak_indices[j] + peak_indices[j-1])//2
                  st = samp
                  print("["+str(sf)+","+str(st)+"]")
                  record  = wfdb.rdsamp(  fullpath+rname, sampto=st, sampfrom=sf)
-                 wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10), ecggrids='all', returnfig = False)
+                 wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10),picpath=OUTDIR, returnfig = False)
 
              else:
                  sf = (peak_indices[j] + peak_indices[j-1])//2
                  st = (peak_indices[j+4] + peak_indices[j+5])//2
                  record  = wfdb.rdsamp(  fullpath+rname, sampto=st, sampfrom=sf)
-                 wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10), ecggrids='all', returnfig = False)
+                 wfdbi.plotrec(record, title=rname+"-"+str(i), timeunits='seconds',figsize = (20,10),picpath=OUTDIR, returnfig = False)
 
                  print("["+str(sf)+","+str(st)+"]")
 

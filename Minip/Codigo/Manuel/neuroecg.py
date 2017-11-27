@@ -1,4 +1,8 @@
 #Manuel Gomes 11-10375 10/11/17
+#Hace resize, recolor a las imagenes, y luego hace un modelelo y lo entrena para clasificarlas segun la patologia
+#IMPORTANTE: MODIFICAR LAS CARPETAS DE ENTRADA: DE LAS IMAGENES ANTES DE PROCESAR Y LUEGO DE PROCESAR
+
+#Para usarlo : python neuroecg,py
 
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
@@ -22,15 +26,15 @@ from keras import backend as K
 K.set_image_dim_ordering('th')
 
 
-path1='/home/manuel/muestra'
+path1='/home/manuel/muestrag'
 path2='/home/manuel/muestra2'
 
 listing=os.listdir(path1)
 numsamples=size(listing)
 print numsamples
 
-imag_rows=8000
-imag_cols=200
+imag_rows=1500
+imag_cols=750
 """
 guh=0
 for img in listing:
@@ -196,5 +200,5 @@ score = model.evaluate(X_test,Y_test, verbose=0)
 print'Test score',score[0]
 print'Test accuracy',score[1]
 
-model.save_weights("ecg1.h5")
+model.save_weights("ecg1S.h5")
 print("Saved model to disk")
