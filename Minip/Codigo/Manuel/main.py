@@ -29,10 +29,10 @@ with open(rpath, 'rb') as csvfile:
 
          print" tc: " , tc, "oc: ", oc, "noisy: ", noisyc, "ac: ", ac
 
-         if tc<1000:
+         if tc<430:
 
              if rclass=="N":
-                if normalc<598:
+                if normalc<257:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
                     if samp > 9000:
@@ -43,11 +43,11 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='N')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='N')
                 else:
                     continue
              elif rclass=="O":
-                if oc<298:
+                if oc<128:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
                     if samp > 9000:
@@ -58,11 +58,11 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='O')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='O')
                 else:
                     continue
              elif rclass=="~":
-                if noisyc<11:
+                if noisyc<5:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
                     if samp > 9000:
@@ -73,11 +73,11 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='Y')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='Y')
                 else:
                     continue
              elif rclass=="A":
-                if ac<93:
+                if ac<40:
                     f=open(fullpath+rname+".hea", "r")
                     samp=int(f.readline().split(" ")[3])
                     if samp > 9000:
@@ -88,7 +88,7 @@ with open(rpath, 'rb') as csvfile:
                     tc+= 1
                     record = wfdb.rdsamp(  fullpath+rname, sampto=samp)
                     print(rname)
-                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5), returnfig = False, ext='A')
+                    wfdbi.plotrec(record, title=rname, timeunits='seconds',figsize = (200,5),ecggrids='all',picpath="/home/manuel/muestrag/", returnfig = False, ext='A')
                 else:
                     continue
 

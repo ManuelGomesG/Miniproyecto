@@ -8,7 +8,7 @@ do
 if echo $i | grep ".mat" >> /dev/null; then
   arg="$1/$i"
   python divide.py $arg
-  python main.py $arg
+  #python main.py $arg
 fi
 done
 
